@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Articles/Automatically update git major tags on GitHub marketplace release.md",
+            "file": "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Articles/Automatically update git major tags on GitHub marketplace release.md",
+                "file": "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,15 +89,15 @@
   },
   "active": "03298962db608693",
   "lastOpenFiles": [
+    "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
+    "Articles/How to lint PRs and welcome contributors using GitHub Actions.md",
+    "Articles/Generate PDF handbook with Docusaurus using GitHub Actions.md",
     "Articles/Automatically update git major tags on GitHub marketplace release.md",
     "Notes/OneGraph.md",
     "Articles/files/1818436.jpg",
     "Notes/GrapiQL.md",
     "Notes/CLI tricks.md",
     "Movies.md",
-    "Articles/Generate PDF handbook with Docusaurus using GitHub Actions.md",
-    "Articles/How to lint PRs and welcome contributors using GitHub Actions.md",
-    "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
     "2021-07-12-18.md"
   ]
 }

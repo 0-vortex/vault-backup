@@ -1,4 +1,5 @@
 ---
+canonicalUrl: https://dev.to/opensauced/semantic-release-to-npm-andor-ghcr-without-any-tooling-5730
 tags:
 - actionshackathon21
 - GitHub

@@ -1,4 +1,5 @@
 ---
+canonicalUrl: https://dev.to/opensauced/generate-pdf-handbook-with-docusaurus-using-github-actions-lfb
 tags:
 - actionshackathon21
 - GitHub

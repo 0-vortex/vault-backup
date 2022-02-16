@@ -1,4 +1,5 @@
 ---
+canonicalUrl: https://dev.to/opensauced/how-to-lint-prs-and-welcome-contributors-using-github-actions-4elo
 tags:
 - actionshackathon21
 - GitHub

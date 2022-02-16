@@ -1,4 +1,5 @@
 ---
+canonicalUrl: https://dev.to/opensauced/automatically-update-git-major-tags-on-github-marketplace-release-1mgk
 tags:
 - actionshackathon21
 - GitHub
