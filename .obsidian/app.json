@@ -1,0 +1,10 @@
+{
+  "promptDelete": false,
+  "foldHeading": true,
+  "showLineNumber": true,
+  "foldIndent": true,
+  "tabSize": 2,
+  "legacyEditor": false,
+  "livePreview": true,
+  "attachmentFolderPath": "./files"
+}

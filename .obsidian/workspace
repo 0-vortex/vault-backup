@@ -1,0 +1,103 @@
+{
+  "main": {
+    "id": "3e04c4a3ba02b044",
+    "type": "split",
+    "children": [
+      {
+        "id": "03298962db608693",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Articles/Automatically update git major tags on GitHub marketplace release.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "df9b0d692c58556a",
+    "type": "split",
+    "children": [
+      {
+        "id": "2f1f05fb3a1fa4c4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d20490a90f8d9cc3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "8857cfe19ec48f4b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "148b29fd9098503c",
+    "type": "split",
+    "children": [
+      {
+        "id": "6aa11320ce5f1873",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fd264566e9f70222",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Articles/Automatically update git major tags on GitHub marketplace release.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "03298962db608693",
+  "lastOpenFiles": [
+    "Articles/Automatically update git major tags on GitHub marketplace release.md",
+    "Notes/OneGraph.md",
+    "Articles/files/1818436.jpg",
+    "Notes/GrapiQL.md",
+    "Notes/CLI tricks.md",
+    "Movies.md",
+    "Articles/Generate PDF handbook with Docusaurus using GitHub Actions.md",
+    "Articles/How to lint PRs and welcome contributors using GitHub Actions.md",
+    "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
+    "2021-07-12-18.md"
+  ]
+}
