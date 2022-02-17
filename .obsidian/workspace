@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
+            "file": "Articles/Deploy a GitHub Application to Cloudflare Workers.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
+                "file": "Articles/Deploy a GitHub Application to Cloudflare Workers.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,15 +89,15 @@
   },
   "active": "03298962db608693",
   "lastOpenFiles": [
-    "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
-    "Articles/How to lint PRs and welcome contributors using GitHub Actions.md",
+    "Articles/Deploy a GitHub Application to Cloudflare Workers.md",
     "Articles/Generate PDF handbook with Docusaurus using GitHub Actions.md",
     "Articles/Automatically update git major tags on GitHub marketplace release.md",
+    "Articles/Semantic release to npmjs.com and ghcr.io without any tooling.md",
+    "Articles/How to lint PRs and welcome contributors using GitHub Actions.md",
     "Notes/OneGraph.md",
     "Articles/files/1818436.jpg",
     "Notes/GrapiQL.md",
     "Notes/CLI tricks.md",
-    "Movies.md",
-    "2021-07-12-18.md"
+    "Movies.md"
   ]
 }
