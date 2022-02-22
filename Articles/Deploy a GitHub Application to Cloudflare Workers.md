@@ -20,9 +20,7 @@ Before I go on, you might be thinking things like:
 - only care about money?!
 - AWS Lambda is dirt cheap!
 - it's all a configuration war you cannot win!
-/*
-suggest giving this alt text
-*/
+
 ![[Screenshot 2022-02-17 at 00.56.59.png]]
 
 Thinking about these hypothetical objections, my inner dialogue goes on:
@@ -159,10 +157,8 @@ Push new code to the server, after a release the new code should be sent to the 
 
 > "easy, what next?!"
 
-Some things come to mind as definitely needed:
-- setting up miniflare for better local development
-- verifying the signature and returning 404/500 on error
-- switching the build system to rollup/vite
-- implement testing and coverage
+Some things come to mind as potential improvements:
+- switching the build system to vite
+- implement testing and coverage commands
 - move secrets to KV namespaces for easier environment deployments
 - dockerize repository
