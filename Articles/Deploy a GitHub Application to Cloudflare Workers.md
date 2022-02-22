@@ -14,23 +14,28 @@ tags:
 
 > "why, why, WHY?"
 
-After seeing [@bdougieyo](https://dev.to/bdougieyo) build a [ProBot](https://bdougie.github.io/sls-probot-guide/) app and [@blackgirlbytes](https://dev.to/blackgirlbytes) fresh take on [deploying ProBot to AWS Lambda](https://dev.to/github/deploying-my-probot-app-to-a-serverless-lambda-352h), I figured I would spice things up a bit by researching the most financially cost-effective solution to run a serverless GitHub application on.
+After seeing [@bdougieyo](https://dev.to/bdougieyo) build a [ProBot](https://bdougie.github.io/sls-probot-guide/) app and [@blackgirlbytes](https://dev.to/blackgirlbytes) fresh take on [deploying ProBot to AWS Lambda](https://dev.to/github/deploying-my-probot-app-to-a-serverless-lambda-352h), I figured I would spice things up a bit by researching the most cost-effective solution to run a serverless GitHub application.
 
-Now hold on, you might be thinking things like:
+Before I go on, you might be thinking things like:
 - only care about money?!
 - AWS Lambda is dirt cheap!
 - it's all a configuration war you cannot win!
-
+/*
+suggest giving this alt text
+*/
 ![[Screenshot 2022-02-17 at 00.56.59.png]]
 
+Thinking about these hypothetical objections, my inner dialogue goes on:
 Me: "Hold up, whaaaat?!"
 Other me: "Yes it's [CloudFlare Workers](https://workers.cloudflare.com)!"
 
-![](https://media.giphy.com/media/21I1WOUDnct4EmSNa6/giphy.gif)
+![man trying to do math in in his head](https://media.giphy.com/media/21I1WOUDnct4EmSNa6/giphy.gif)
 
-The simple explanation is it's using the Service Worker API, they offer a flat, free, 100.000 requests a day if you [can keep it cutting edge](https://developers.cloudflare.com/workers/platform/limits#worker-limits), has local development and testing options with [miniflare](https://miniflare.dev) and a [KV store](https://www.cloudflare.com/en-gb/products/workers-kv/).
+The simple explanation is that I'm proposing use of the Service Worker API. Cloudflare offers a flat, free, 100k requests a day if you [can keep it cutting edge](https://developers.cloudflare.com/workers/platform/limits#worker-limits), has local development and testing options with [miniflare](https://miniflare.dev) and a [key/value (KV) store](https://www.cloudflare.com/en-gb/products/workers-kv/).
 
-Still sounds fishy? That's because by default it's using Webpack 4, so it can do Rollup, so it can do Vite. Yes, [@mtfoley](https://dev.to/mtfoley), this is preparing to be another [converting to Vite series](https://dev.to/mtfoley/series/16147)!
+If you still have your doubts, it might be because you know that the build system would be using Webpack 4 out of the box. However, this means it can do Rollup, and so it can do Vite. Yes, [@mtfoley](https://dev.to/mtfoley), this is preparing to be another [converting to Vite series](https://dev.to/mtfoley/series/16147)!
+
+We'll be applying our solution to [catsup-app](https://github.com/open-sauced/catsup-app) GitHub application being developed in the Open Sauced org. For each repo that has the application installed, our Discord will be updated when an issue has the `good first issue` label applied.
 
 ## Technical part
 
@@ -40,7 +45,7 @@ Still sounds fishy? That's because by default it's using Webpack 4, so it can do
 
 This is going to hurt:
 - make the existing Probot code compatible
-- writing less than browser compatible code
+- writing less-than-browser-compatible code
 - <10 ms CPU execution time due to the workers' limits
 - automated releases over an open-source repository 
 - secure deployments
@@ -51,17 +56,17 @@ Assuming [the workers PR](https://github.com/open-sauced/catsup-app/pull/2) will
 
 {% github open-sauced/catsup-app %}
 
-In order for the project to be shipped as a service function, the node environment can not be used in any of the production code. While this seems like a dead-end for Probot - I'm looking at you [`require("dotenv").config()`](https://github.com/probot/probot/blob/5d232e2d86c72cff541d193a877a4ccf90cea6d7/src/bin/probot.ts#L5) - its underlying framework, [OctoKit](https://github.com/octokit/octokit.js) does not come with any opinionated code.
+In order for the project to be shipped as a service function, the node environment can not be used in any of the production code. Reviewing Probot source, one might see a dead end in that it uses [`require("dotenv").config()`](https://github.com/probot/probot/blob/5d232e2d86c72cff541d193a877a4ccf90cea6d7/src/bin/probot.ts#L5). However, its underlying framework, [OctoKit](https://github.com/octokit/octokit.js) does not come with any opinionated code in this regard.
 
-Simply expanding the script into the Probot equivalent while dodging the node imports was very easy and done before, being able to see existing working code made the process a lot more enjoyable:
+Simply expanding the script into the Probot equivalent while dodging the node imports was very easy and has been done before. Being able to see existing working code made the process a lot more enjoyable:
 
 {% github gr2m/cloudflare-worker-github-app-example %}
 
-Using the same [probot/smee-client](https://github.com/probot/smee-client) shipped by Probot we divert the webhook URL to localhost for the development application - for the production application we will enter a custom route.
+Using the same [probot/smee-client](https://github.com/probot/smee-client) shipped by Probot we divert the webhook URL to one on localhost for the development application, and for the production application we will enter a custom route.
 
-While it might look like an anti-pattern, setting up a private local-only application in the workers configuration file is perfectly safe and meant as the most basic way to ensure all environment variables are encrypted for the production environment. A neat trick to environment variables in workers, we are unable to deploy the app if the variables don't exist and the only way to add them is by encrypting them as secrets.
+While it might look like an anti-pattern, setting up a private local-only application in the workers configuration file is perfectly safe and meant as the most basic way to ensure all environment variables are encrypted for the production environment. In fact, a helpful property of workers lies in the fact that we are unable to deploy the app if the requisite environment variables don't exist, and the only way to add them is by encrypting them as secrets.
 
-The above secret pattern requires us we set up the GitHub application and Discord hooks before trying to deploy the service worker, as it would otherwise fail with unencrypted or loose values.
+The above secrets definition pattern requires that we set up the GitHub application and Discord hooks before trying to deploy the service worker, as it would otherwise fail with unencrypted or loose values.
 
 ### Setting up the service worker
 
@@ -79,14 +84,14 @@ Create a new GitHub application with scopes `issues:write` and `metadata:read` w
   
 Upon creation you should have plain-text values for `APP_ID`, `CLIENT_ID`.  
   
-Click the "Generate a new client secret" button and copy the value of `CLIENT_SECRET`.  
+Click the "Generate a new client secret" button and copy the resulting value of `CLIENT_SECRET`.  
   
-In the webhook return URL copw the value of your worker route as described in the last step of the Cloudflare setup.  
+In the webhook return URL copy the value of your worker route as described in the last step of the Cloudflare setup.  
   
-It is advised you generate the `WEBHOOK_SECRET` using the following command:
+If you have Ruby installed, it is advised you generate the `WEBHOOK_SECRET` using the following command:
 
 ```shell  
-# random key strokes can work too if you don't have ruby(??)  
+# random key strokes can work too if you don't have ruby
 ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'  
 ```  
   
@@ -121,11 +126,11 @@ Encrypt all of them and deployment will start working both locally and in the CI
 
 ### Deployment
 
-The PR code, as well as the maintainers, aro not yet sure what the best wey to approach multiple environment deployment should look like. There is a small consideration for the CI action leaking the target URL which would give the possibility of service disruption - making the deployment target fully private, IE deploying from `wrangler` locally would make the discovery process partially visible to us in application installations and limit outbound attack vectors considerably. Sitting behind 2 of the biggest global CDNs also help a lot!
+The PR code, as well as the maintainers, are not yet sure of the best way to approach deployment to multiple environments. There is a minor concern for the CI action leaking the target URL which would give the possibility of service disruption. Making the deployment target fully private, i.e. deploying from `wrangler` locally, would make the discovery process partially visible to us in application installations and limit outbound attack vectors considerably. Sitting behind 2 of the biggest global CDNs would also help a lot!
 
 #### Local publish
 
-Login to cloudflare with your account credentials, advised you let the browser open an OAuth dialog with:  
+Login to cloudflare with your account credentials, letting the browser open an OAuth dialog with:  
   
 ```shell  
 npm run wrangler -- login
@@ -146,7 +151,7 @@ npm run wrangler -- tail
 
 #### GitHub actions
 
-Create a new GitHub actions secrets named `CF_API_TOKEN`, get its value from Cloudflare's [create a new token](https://dash.cloudflare.com/profile/api-tokens) using the "Edit Cloudflare Workers" template.  
+Create a new GitHub actions secret named `CF_API_TOKEN`, get its value from Cloudflare's [create a new token](https://dash.cloudflare.com/profile/api-tokens) using the "Edit Cloudflare Workers" template.  
   
 Push new code to the server, after a release the new code should be sent to the server and instantly propagate.
 
