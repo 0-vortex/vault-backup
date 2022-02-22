@@ -74,15 +74,23 @@ Set up a cloudflare account and enable workers, change `account_id` in [wrangler
   
 Go to your workers dashboard and create a new worker, select any template, adjust `name` in [wrangler.toml](./wrangler.toml) if the existing one is taken.
 
+![[Screenshot 2022-02-23 at 00.36.12.png]]
+
 Write the "Routes" URL provided by the worker down somewhere for the next parts. It will serve as webhook return URL.
 
 #### 2. GitHub application
 
 Create a new GitHub application with scopes `issues:write` and `metadata:read` while also enabling tracking events.  
-  
+
+![[Screenshot 2022-02-14 at 23.29.23.png]]
+
+![[Screenshot 2022-02-14 at 00.38.48.png]]
+	
 Upon creation you should have plain-text values for `APP_ID`, `CLIENT_ID`.  
   
 Click the "Generate a new client secret" button and copy the resulting value of `CLIENT_SECRET`.  
+
+![[Screenshot 2022-02-22 at 23.55.01.png]]
   
 In the webhook return URL copy the value of your worker route as described in the last step of the Cloudflare setup.  
   
@@ -92,7 +100,9 @@ If you have Ruby installed, it is advised you generate the `WEBHOOK_SECRET` usin
 # random key strokes can work too if you don't have ruby
 ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'  
 ```  
-  
+
+![[Screenshot 2022-02-14 at 00.38.34.png]]
+	
 Now, go to the very bottom and click "Generate a new private key" and open a terminal in the location of the downloaded file.  
   
 Rename this file to `private-key.pem` for the next command to work:  
@@ -109,6 +119,8 @@ Go to your server of choice, click "Settings" and then "Integrations", create a 
   
 Now you are good to use the wrangler release workflows and deploy to production!
 
+![[Screenshot 2022-02-23 at 00.41.12.png]]
+
 #### 4. Environment variables
 
 Select the "Settings" tab on your newly created worker and click "Variables", add the following variables with the values described in the previous steps:
@@ -121,6 +133,8 @@ Select the "Settings" tab on your newly created worker and click "Variables", ad
 -   `WEBHOOK_SECRET`
 
 Encrypt all of them and deployment will start working both locally and in the CI workflows! 
+
+![[Screenshot 2022-02-23 at 00.36.44.png]]
 
 ### Deployment
 
